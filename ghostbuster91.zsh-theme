@@ -3,15 +3,22 @@ function collapse_pwd {
 }
 
 function prompt_char {
-    echo '○'
+    echo '>>'
 }
 
 function virtualenv_info {
     [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
 }
 
+function error_code {
+    CODE=$?
+    if [ $CODE -ne '0' ]
+    then 
+      echo $CODE
+    fi	
+}
 
-PROMPT='
+PROMPT='$(error_code)
 %{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[green]%}$(collapse_pwd)%{$reset_color%}$(git_prompt_info)
 $(virtualenv_info)$(prompt_char) '
 
